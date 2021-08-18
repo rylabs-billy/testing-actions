@@ -30,9 +30,16 @@ jobs:
           cd molecule_test
           python3 -m pip install --upgrade pip
           python3 -m pip install -r requirements.txt
-      - name: Test with molecule
+      #- name: Test with molecule
+      #  run: |
+      #    cd molecule_test/tests
+      #    molecule test -s debian10
+      #    molecule test -s ubuntu20.04
+      - name: Test Debian10
         run: |
           cd molecule_test/tests
           molecule test -s debian10
-          sleep 2
+      - name: Test Ubuntu20.04
+        run: |
+          cd molecule_test/tests
           molecule test -s ubuntu20.04
