@@ -1,0 +1,7 @@
+# Ansible Inventory
+# BEGIN GALERA LINODES
+[galera_servers]
+172.104.58.253
+172.104.164.53
+172.104.164.103
+# END GALERA LINODES
