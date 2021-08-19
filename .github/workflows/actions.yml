@@ -28,9 +28,10 @@ jobs:
           test_vars: ${{ secrets.ansible_vars }}
         run: |
           vars=$(cat molecule_test/group_vars/galera/vars)
-      - name: Test variables
-        if: ${{ vars != test_vars }}
-        run: exit 1
+          if [ "${vars}" != "${test_vars}"; then exit 1; fi
+          #- name: Test variables
+          #if: ${{ vars != test_vars }}
+          #run: exit 1
       - name: Install dependencies
         run: |
           cd molecule_test
