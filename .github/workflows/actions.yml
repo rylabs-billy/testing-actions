@@ -29,7 +29,7 @@ jobs:
           ansible_vars: ${{ secrets.ANSIBLE_VARS }}
         run: |
           test_vars=$(cat molecule_test/group_vars/galera/vars)
-          galera_ansible_vars=$(wget https://gist.githubusercontent.com/rylabs-billy/84a61b613594e5a956bc3eb883fd910f/raw/7e440e9c0c9382ff08710af3cc4274f7a383f3db/galera_ansible_vars)
+          galera_ansible_vars=$(curl -s https://gist.githubusercontent.com/rylabs-billy/84a61b613594e5a956bc3eb883fd910f/raw/7e440e9c0c9382ff08710af3cc4274f7a383f3db/galera_ansible_vars)
           echo "test_vars:"
           echo "$test_vars"
           echo "galera_ansible_vars:"
