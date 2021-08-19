@@ -2,11 +2,10 @@ linode_api4
 ansible
 polling
 pymysql
-docker
 molecule
-molecule-docker
 yamllint
 flake8
 tox-ansible
 python-vagrant
 molecule-vagrant==0.6.1
+pytest-testinfra
