@@ -25,8 +25,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Set variables
         shell: bash
-       env:
-         test_vars: ${{ secrets.ansible_vars }}
+        env:
+          test_vars: ${{ secrets.ansible_vars }}
         run: |
           my_vars=$(cat molecule_test/group_vars/galera/vars)
           if [ "$my_vars" != "$test_vars" ]; then exit 1; fi
