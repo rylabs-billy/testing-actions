@@ -29,7 +29,7 @@ jobs:
           ansible_vars: ${{ secrets.ansible_vars }}
         run: |
           test_vars=$(cat molecule_test/group_vars/galera/vars)
-          if [ "$test_vars" != "$ansible_vars" ]; then exit 1; fi
+          if [ "$test_vars" != "$ansible_vars" ]; then echo "Incorrect parameters in vars file"; exit 1; fi
      #- name: Test variables
      #   if: ${{ vars != test_vars }}
      #   run: exit 1
