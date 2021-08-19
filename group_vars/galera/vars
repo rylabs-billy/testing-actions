@@ -1,28 +1,19 @@
+that
 # linode vars
-ssh_keys: ssh-ed25519 AAAAAMYYYKKEEEYYYY user@linode.com 
-galera_prefix: galera
-cluster_name: POC
-type: g6-standard-2
-region: ap-south
-image: linode/ubuntu20.04
-group: test
-linode_tags: POC
+ssh_keys: 
+galera_prefix:
+cluster_name:
+type:
+region:
+image:
+group:
+linode_tags:
 
 # ssl/tls vars
-country_name: US
-state_or_province_name: Pennsylvania
-locality_name: Philadelphia
-organization_name: Linode
-email_address: user@linode.com
-ca_common_name: Galera CA
-common_name: Galera Server
-# BEGIN INSTANCE VARS
-# hostnames 
-host1: galera1
-host2: galera2
-host3: galera3
-# private ips
-priv_ip1: 192.168.144.229
-priv_ip2: 192.168.171.230
-priv_ip3: 192.168.158.73
-# END INSTANCE VARS
+country_name:
+state_or_province_name:
+locality_name:
+organization_name:
+email_address:
+ca_common_name:
+common_name:
