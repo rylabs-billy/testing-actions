@@ -25,19 +25,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Set variables
         shell: bash
-       #env:
-       #   test_vars: ${{ secrets.ansible_vars }}
-       #    my_vars: ${{ my_vars }}
+       env:
+         test_vars: ${{ secrets.ansible_vars }}
         run: |
           my_vars=$(cat molecule_test/group_vars/galera/vars)
-        env:
-          test_vars: ${{ secrets.ansible_vars }}
-          my_vars: ${{ my_vars }}
-          #echo "${my_vars}" && echo "${test_vars}" 
-          #if [ "${my_vars}" != "${test_vars}"; then exit 1; fi
-    - name: Test variables
-        if: ${{ vars != test_vars }}
-        run: exit 1
+          if [ "$my_vars" != "$test_vars" ]; then exit 1; fi
+     #- name: Test variables
+     #   if: ${{ vars != test_vars }}
+     #   run: exit 1
       - name: Install dependencies
         run: |
           cd molecule_test
