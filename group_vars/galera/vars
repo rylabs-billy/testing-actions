@@ -1,4 +1,3 @@
-that
 # linode vars
 ssh_keys: 
 galera_prefix:
