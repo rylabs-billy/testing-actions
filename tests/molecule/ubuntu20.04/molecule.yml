@@ -24,6 +24,7 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.1"'
+      - 'vm.boot_timeout: 600'
     groups:
       - galera_servers
   - name: galera2
@@ -37,6 +38,7 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.2"'
+      - 'vm.boot_timeout: 600'
     groups:
       - galera_servers
   - name: galera3
@@ -50,6 +52,7 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.3"'
+      - 'vm.boot_timeout: 600'
     groups:
       - galera_servers
 provisioner:
