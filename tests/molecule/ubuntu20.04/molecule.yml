@@ -14,7 +14,7 @@ lint: |
 platforms:
   - name: galera1
     #box: generic/ubuntu2004
-    box: ubuntu/focal64
+    box: bento/ubuntu-20.04
     memory: 512
     cpus: 1
     interfaces:
@@ -24,11 +24,10 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.1"'
-    config_options: ['vm.boot_timeout 600']
     groups:
       - galera_servers
   - name: galera2
-    box: ubuntu/focal64
+    box: bento/ubuntu-20.04
     memory: 512
     cpus: 1
     interfaces:
@@ -38,11 +37,10 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.2"'
-      - 'vm.boot_timeout 600'
     groups:
       - galera_servers
   - name: galera3
-    box: ubuntu/focal64
+    box: bento/ubuntu-20.04
     memory: 512
     cpus: 1
     interfaces:
@@ -52,7 +50,6 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.3"'
-      - 'vm.boot_timeout 600'
     groups:
       - galera_servers
 provisioner:
