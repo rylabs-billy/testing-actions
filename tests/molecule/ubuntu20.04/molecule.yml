@@ -13,7 +13,8 @@ lint: |
   flake8
 platforms:
   - name: galera1
-    box: generic/ubuntu2004
+    #box: generic/ubuntu2004
+    box: ubuntu/focal64
     memory: 512
     cpus: 1
     interfaces:
@@ -26,7 +27,7 @@ platforms:
     groups:
       - galera_servers
   - name: galera2
-    box: generic/ubuntu2004
+    box: ubuntu/focal64
     memory: 512
     cpus: 1
     interfaces:
@@ -39,7 +40,7 @@ platforms:
     groups:
       - galera_servers
   - name: galera3
-    box: generic/ubuntu2004
+    box: ubuntu/focal64
     memory: 512
     cpus: 1
     interfaces:
