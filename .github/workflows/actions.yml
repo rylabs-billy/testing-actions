@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Set variables
+      - name: Test ansible vars
         #shell: bash
         #env:
         #  ansible_vars: ${{ secrets.ANSIBLE_VARS }}
@@ -35,7 +35,7 @@ jobs:
           echo "galera_ansible_vars:"
           echo "$galera_ansible_vars"
           #diff=$(<(echo "$test_vars") <(echo "$galera_ansible_vars"))
-          diff <(echo "$test_vars") <(echo "$galera_ansible_vars")
+          diff -w <(echo "$test_vars") <(echo "$galera_ansible_vars")
           #if [ "$test_vars" != "$galera_ansible_vars" ]; then echo "Incorrect parameters in vars file"; exit 1; fi
      #- name: Test variables
      #   if: ${{ vars != test_vars }}
