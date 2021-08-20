@@ -34,8 +34,8 @@ jobs:
           echo "$test_vars"
           echo "galera_ansible_vars:"
           echo "$galera_ansible_vars"
-          diff=$(<(echo "$test_vars") <(echo "$galera_ansible_vars"))
-          if [ "$diff" != "" ]; then echo "Incorrect parameters in vars file"; exit 1; fi
+          #diff=$(<(echo "$test_vars") <(echo "$galera_ansible_vars"))
+          if [ "$test_vars" != "$galera_ansible_vars" ]; then echo "Incorrect parameters in vars file"; exit 1; fi
      #- name: Test variables
      #   if: ${{ vars != test_vars }}
      #   run: exit 1
