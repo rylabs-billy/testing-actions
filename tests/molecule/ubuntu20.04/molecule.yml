@@ -25,11 +25,11 @@ platforms:
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.1"'
       - "vm.boot_timeout = 600"
-    provider_raw_config_args:
-      - "customize [ 'modifyvm', :id, '--cableconnected1', 'on']"
-    config_options:
-      ssh.keep_alive: yes
-      ssh.remote_user: "'vagrant'"
+   #provider_raw_config_args:
+   #   - "customize [ 'modifyvm', :id, '--cableconnected1', 'on']"
+   #config_options:
+   #   ssh.keep_alive: yes
+   #   ssh.remote_user: "'vagrant'"
     groups:
       - galera_servers
   - name: galera2
@@ -43,11 +43,7 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.2"'
-    provider_raw_config_args:
-      - "customize [ 'modifyvm', :id, '--cableconnected1', 'on']"
-    config_options:
-      ssh.keep_alive: yes
-      ssh.remote_user: "'vagrant'"
+      - "vm.boot_timeout = 600"
     groups:
       - galera_servers
   - name: galera3
@@ -61,11 +57,7 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.3"'
-    provider_raw_config_args:
-      - "customize [ 'modifyvm', :id, '--cableconnected1', 'on']"
-    config_options:
-      ssh.keep_alive: yes
-      ssh.remote_user: "'vagrant'"
+      - "vm.boot_timeout = 600"
     groups:
       - galera_servers
 provisioner:
