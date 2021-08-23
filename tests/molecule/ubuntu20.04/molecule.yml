@@ -29,6 +29,7 @@ platforms:
     config_options:
       ssh.keep_alive: yes
       ssh.remote_user: "'vagrant'"
+      boot_timeout: 600
     groups:
       - galera_servers
   - name: galera2
