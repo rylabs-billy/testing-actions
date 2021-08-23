@@ -14,7 +14,7 @@ lint: |
 platforms:
   - name: galera1
     #box: generic/ubuntu2004
-    box: bento/ubuntu-20.04
+    box: ubuntu/focal64
     memory: 512
     cpus: 1
     interfaces:
@@ -24,10 +24,15 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.1"'
+    provider_raw_config_args:
+      - "customize [ 'modifyvm', :id, '--cableconnected1', 'on']"
+    config_options:
+      ssh.keep_alive: yes
+      ssh.remote_user: "'vagrant'"
     groups:
       - galera_servers
   - name: galera2
-    box: bento/ubuntu-20.04
+    box: ubuntu/focal64
     memory: 512
     cpus: 1
     interfaces:
@@ -37,10 +42,15 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.2"'
+    provider_raw_config_args:
+      - "customize [ 'modifyvm', :id, '--cableconnected1', 'on']"
+    config_options:
+      ssh.keep_alive: yes
+      ssh.remote_user: "'vagrant'"
     groups:
       - galera_servers
   - name: galera3
-    box: bento/ubuntu-20.04
+    box: ubuntu/focal64
     memory: 512
     cpus: 1
     interfaces:
@@ -50,6 +60,11 @@ platforms:
         auto_config: true
     instance_raw_config_args:
       - 'vm.network "private_network", type: "static", ip: "192.168.0.3"'
+    provider_raw_config_args:
+      - "customize [ 'modifyvm', :id, '--cableconnected1', 'on']"
+    config_options:
+      ssh.keep_alive: yes
+      ssh.remote_user: "'vagrant'"
     groups:
       - galera_servers
 provisioner:
