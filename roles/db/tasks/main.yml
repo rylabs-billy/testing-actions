@@ -9,7 +9,8 @@
       {{ priv_ip1 }} {{ host1 }}
       {{ priv_ip2 }} {{ host2 }}
       {{ priv_ip3 }} {{ host3 }}
-  
+  tags: molecule-notest
+
 - name: install mariadb and dependencies
   apt:
     pkg:
@@ -55,12 +56,12 @@
   import_tasks: ssl.yml
 
 # set up galera1
-- name: set galera1 hostname
+- name: set {{ host1 }} hostname
   shell: hostnamectl set-hostname '{{ host1 }}'
   run_once: true
   delegate_to: "{{ groups['galera_servers'][0] }}"
 
-- name: set facts for galera1
+- name: set facts for {{ host1 }}
   set_fact:
     wsrep_cluster_name: '{{ cluster_name }}'
     wsrep_node_address: '{{ priv_ip1 }}'
@@ -68,7 +69,7 @@
   run_once: true
   delegate_to: "{{ groups['galera_servers'][0] }}"
 
-- name: configure galera1 galera.cnf
+- name: configure {{ host1 }} galera.cnf
   template:
     src: galera.cnf.j2
     dest: /etc/mysql/conf.d/galera.cnf
@@ -79,12 +80,12 @@
   delegate_to: "{{ groups['galera_servers'][0] }}"
 
 # set up galera2
-- name: set galera2 hostname
+- name: set {{ host2 }} hostname
   shell: hostnamectl set-hostname '{{ host2 }}'
   run_once: true
   delegate_to: "{{ groups['galera_servers'][1] }}"
 
-- name: set facts for galera2
+- name: set facts for {{ host2 }}
   set_fact:
     wsrep_cluster_name: '{{ cluster_name }}'
     wsrep_node_address: '{{ priv_ip2 }}'
@@ -92,7 +93,7 @@
   run_once: true
   delegate_to: "{{ groups['galera_servers'][1] }}"
 
-- name: configure galera2 galera.cnf
+- name: configure {{ host2 }} galera.cnf
   template:
     src: galera.cnf.j2
     dest: /etc/mysql/conf.d/galera.cnf
@@ -103,12 +104,12 @@
   delegate_to: "{{ groups['galera_servers'][1] }}"
 
 # set up galera3
-- name: set galera3 hostname
+- name: set {{ host3 }} hostname
   shell: hostnamectl set-hostname '{{ host3 }}'
   run_once: true
   delegate_to: "{{ groups['galera_servers'][2] }}"
 
-- name: set facts for galera3
+- name: set facts for {{ host3 }}
   set_fact:
     wsrep_cluster_name: '{{ cluster_name }}'
     wsrep_node_address: '{{ priv_ip3 }}'
@@ -116,7 +117,7 @@
   run_once: true
   delegate_to: "{{ groups['galera_servers'][2] }}"
 
-- name: configure galera3 galera.cnf
+- name: configure {{ host3 }} galera.cnf
   template:
     src: galera.cnf.j2
     dest: /etc/mysql/conf.d/galera.cnf
@@ -132,19 +133,19 @@
     name: mysql
     state: stopped
 
-- name: bootstrap galera1
+- name: bootstrap {{ host1 }}
   shell: galera_new_cluster
   run_once: true
   delegate_to: "{{ groups['galera_servers'][0] }}"
 
-- name: start galera2 mysql
+- name: start {{ host2 }} mysql
   service:
     name: mysql
     state: started
   run_once: true
   delegate_to: "{{ groups['galera_servers'][1] }}"
 
-- name: start galera3 mysql
+- name: start {{ host3 }} mysql
   service:
     name: mysql
     state: started
@@ -169,11 +170,10 @@
     src: firewalld-services-galera.j2
     dest: /etc/firewalld/services/galera.xml
     mode: '0640'
-  notify: firewalld enable
 
 - name: configure firewalld internal zone
   template:
     src: firewalld-zones-internal.j2
     dest: /etc/firewalld/zones/internal.xml
     mode: '0640'
-  notify: firewalld reload
+  notify: firewalld enable
