@@ -39,7 +39,7 @@
 - name: start mysql
   systemd:
     name: mysql
-    state: started
+    state: restarted
     enabled: yes
 
 - name: run db queries
