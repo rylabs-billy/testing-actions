@@ -47,14 +47,14 @@
         name: mysqld
         state: restarted
         enabled: yes
-        
+
   rescue:
     - name: Populate service facts
       service_facts:
 
-    - name: Print service facts
-      debug:
-        var: ansible_facts.services.mysql
+    - name: Print journalctl
+      shell: journalctl -xe | tail -n 100
+        #var: ansible_facts.services.mysql
 
 - name: run db queries
   mysql_query:
