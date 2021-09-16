@@ -44,7 +44,7 @@
   block: 
     - name: start mysql
       systemd:
-        name: mysqld
+        name: mysql
         state: restarted
         enabled: yes
 
@@ -54,9 +54,9 @@
 
     - name: Print journalctl
       shell: journalctl -xe | tail -n 100
-      register: results
+      register: info
 
-    - name: print results
+    - name: print info.results
       debug:
         var: resutls
         #var: ansible_facts.services.mysql
