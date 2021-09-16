@@ -39,7 +39,7 @@
 
 - name: start mysql
   systemd:
-    name: mysql
+    name: mariadb
     state: restarted
     enabled: yes
 
