@@ -42,11 +42,12 @@
 
 - name: starting mysql
   block: 
-  - name: start mysql
-    systemd:
-      name: mysqld
-      state: restarted
-      enabled: yes
+    - name: start mysql
+      systemd:
+        name: mysqld
+        state: restarted
+        enabled: yes
+        
   rescue:
     - name: Populate service facts
       service_facts:
