@@ -10,6 +10,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+          image: mariadb:10.3
+          env:
+            MYSQL_ROOT_PASSWORD: ''
+          ports:
+            - 3306/tcp
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     strategy:
       max-parallel: 1
       matrix:
@@ -37,7 +45,7 @@ jobs:
       - name: 'Test Ubuntu 20.04'
         run: |
           cd molecule_test/tests
-          molecule -v test -s ubuntu20.04
+          molecule test -s ubuntu20.04
       - name: 'Test Debian 10'
         run: |
           cd molecule_test/tests
