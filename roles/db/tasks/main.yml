@@ -58,10 +58,9 @@
       shell: journalctl -xe | tail -n 100
       register: info
 
-    - name: print info.results
+    - name: print info
       debug:
-        var: info.resutls
-        #var: ansible_facts.services.mysql
+        var: info.stdout_lines
 
 - name: run db queries
   mysql_query:
