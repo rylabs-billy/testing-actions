@@ -37,7 +37,7 @@ jobs:
       - name: 'Test Ubuntu 20.04'
         run: |
           cd molecule_test/tests
-          molecule -vvv test -s ubuntu20.04
+          molecule -v test -s ubuntu20.04
       - name: 'Test Debian 10'
         run: |
           cd molecule_test/tests

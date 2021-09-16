@@ -39,12 +39,29 @@
   systemd:
     daemon_reload: yes
   tags: molecule-notest
+
+- name: starting mysql
+  block: 
+  - name: start mysql
+    systemd:
+      name: mysqld
+      state: restarted
+      enabled: yes
+  rescue:
+    - name: handle failre
+      service_facts:
+        name: mysql
+        source: systemd
+        
+    - name: Print service facts
+      debug:
+        var: ansible_facts.services.mysql
   
-- name: start mysql
-  systemd:
-    name: mysql
-    state: restarted
-    enabled: yes
+
+- name: Print service facts
+  ansible.builtin.debug:
+    var: ansible_facts.services
+
 
 - name: run db queries
   mysql_query:
