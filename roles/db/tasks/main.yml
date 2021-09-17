@@ -26,29 +26,33 @@
     path: /etc/systemd/system/mariadb.service.d
     state: directory
     mode: '0755'
-  tags: molecule-notest
+  #tags: molecule-notest
 
 - name: configure systemd service timeout
   template:
     src: timeoutstartsec.conf.j2
     dest: /etc/systemd/system/mariadb.service.d/timeoutstartsec.conf
     mode: '0644'
-  tags: molecule-notest
+  #tags: molecule-notest
 
 - name: systemd daemon reload
   systemd:
     daemon_reload: yes
-  tags: molecule-notest
+  #tags: molecule-notest
 
 - name: starting mysql
-  block: 
+  block:
+    #- name: try me 
+    #  shell: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/
+    - name: Sleep for 20 seconds and continue with play
+      wait_for:
+        timeout: 20
+
     - name: start mysql
       systemd:
         name: mysql
         state: restarted
         enabled: yes
-    - name: fail
-      fail:
 
   rescue:
     - name: Populate service facts
