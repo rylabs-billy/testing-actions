@@ -53,8 +53,8 @@
         name: mysql
         state: restarted
         #enabled: yes
-      register: info
-      until: info.status.Result == "success"
+      register: result
+      until: result.status.Result == "success"
       retries: 3
       delay: 3
 
