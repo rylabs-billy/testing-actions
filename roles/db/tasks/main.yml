@@ -53,10 +53,14 @@
         name: mysql
         state: restarted
         #enabled: yes
-      register: result
-      until: result.status == 'success' 
+      register: info
+      until: info.status.Result == "success"
       retries: 3
       delay: 3
+
+    #- name: print status
+    #  debug:
+    #    var: result.status.Result
 
   rescue:
     - name: Populate service facts
