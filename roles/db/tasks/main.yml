@@ -52,7 +52,11 @@
       systemd:
         name: mysql
         state: restarted
-        enabled: yes
+        #enabled: yes
+      register: result
+      until: result.rc == 0
+      retries: 3
+      delay: 3
 
   rescue:
     - name: Populate service facts
