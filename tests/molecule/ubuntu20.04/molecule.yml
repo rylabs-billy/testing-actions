@@ -27,7 +27,7 @@ platforms:
       galera3: "192.168.0.3"
     privileged: true
     command: init
-    memory: 2g
+    #memory: 4G
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -49,7 +49,7 @@ platforms:
       galera3: "192.168.0.3"
     privileged: true
     command: init
-    memory: 2g
+    #memory: 4G
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -71,7 +71,7 @@ platforms:
       galera2: "192.168.0.2"
     privileged: true
     command: init
-    memory: 2g
+    #memory: 4G
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     groups:
