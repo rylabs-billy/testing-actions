@@ -9,9 +9,9 @@ on:
       - main
 jobs:
   build:
-    runs-on: macos-10.15
+    runs-on: macos-11
     strategy:
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         python-version: [3.9]
 
