@@ -10,7 +10,7 @@ lint: |
   ansible-lint
   flake8
 platforms:
-  - name: galera1-${TOX_ENVNAME}
+  - name: galera1
     image: ubuntu20.04
     dockerfile: ./Dockerfile
     build_image: true
@@ -29,10 +29,11 @@ platforms:
     command: init
     #memory: 4G
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/mysql:/var/lib/mysql:rw
     groups:
       - galera_servers
-  - name: galera2-${TOX_ENVNAME}
+  - name: galera2
     image: ubuntu20.04
     dockerfile: ./Dockerfile
     build_image: true
@@ -51,7 +52,8 @@ platforms:
     command: init
     #memory: 4G
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/mysql:/var/lib/mysql:rw
     groups:
       - galera_servers
   - name: galera3-${TOX_ENVNAME}
@@ -74,6 +76,7 @@ platforms:
     #memory: 4G
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/mysql:/var/lib/mysql:rw
     groups:
       - galera_servers
 provisioner:
