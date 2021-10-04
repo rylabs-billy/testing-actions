@@ -5,7 +5,7 @@ ENV container docker
 ENV LC_ALL C
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN sed -i 's/# deb/deb/g' /etc/apt/sources.list
+RUN sed -i 's/# deb/deb/g' /etc/apt/sources.list && mkdir -p /var/lib/mysql
 
 RUN apt-get update \
     && apt-get install -y systemd systemd-sysv python3 apt-utils \
@@ -28,4 +28,5 @@ RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
 VOLUME [ "/sys/fs/cgroup" ]
 VOLUME [ "/var/lib/mysql" ]
 
-CMD ["/lib/systemd/systemd"]
+#CMD ["/lib/systemd/systemd"]
+CMD ["init"]

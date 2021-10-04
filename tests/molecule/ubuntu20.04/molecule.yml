@@ -56,7 +56,7 @@ platforms:
       - /var/lib/mysql:/var/lib/mysql:rw
     groups:
       - galera_servers
-  - name: galera3-${TOX_ENVNAME}
+  - name: galera3
     image: ubuntu20.04
     dockerfile: ./Dockerfile
     build_image: true
@@ -86,8 +86,8 @@ provisioner:
   env:
     ANSIBLE_ROLES_PATH: ../../../roles
 verifier:
-  #name: ansible
-  name: testinfra
+  name: ansible
+  #name: testinfra
 scenario:
   test_sequence:
     - dependency
