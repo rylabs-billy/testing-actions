@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: install docker
         run: |
-          brew --cask install docker
+          brew install --cask docker
           # allow the app to run without confirmation
           xattr -d -r com.apple.quarantine /Applications/Docker.app
   
