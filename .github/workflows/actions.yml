@@ -20,7 +20,6 @@ jobs:
       - name: install docker
         run: |
           mkdir -p ~/.docker/machine/cache
-          cd /tmp
           curl -LO https://download.virtualbox.org/virtualbox/6.1.26/VirtualBox-6.1.26-145957-OSX.dmg
           hdiutil attach VirtualBox-6.1.26-145957-OSX.dmg
           sudo installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /Volumes/Macintosh\ HD
