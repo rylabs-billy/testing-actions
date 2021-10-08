@@ -1,7 +1,7 @@
 # makefile
 
 setup-env:
-	ANSIBLE_SSH_KEY := $(shell echo | ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "/root/.ssh/id_ansible_ed25519" -P "" > /dev/null && cat /root/.ssh/id_ansible_ed25519.pub)
+	ANSIBLE_SSH_KEY := $(shell echo | ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "$(HOME)/.ssh/id_ansible_ed25519" -P "" > /dev/null && cat $(HOME)/.ssh/id_ansible_ed25519.pub)
 	ROOT_PASS := $(shell openssl rand -base64 32)
 	DATETIME := $(shell date '+%Y-%m-%d_%H:%M:%S')
 	VARS_URL := "https://gist.githubusercontent.com/rylabs-billy/58333048d8c2b39cd55b8b08de4e1ac0/raw/77b112a3a270189b6203b69bfb7af16af2dc166d/galera_test_varse"
