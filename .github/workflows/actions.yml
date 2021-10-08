@@ -18,8 +18,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+        #with:
+        #  fetch-depth: 1
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -31,6 +31,7 @@ jobs:
           if [ "$vars_hash" != "vars_file: OK" ]; then exit 1; fi
       - name: install dependencies
         run: |
+          cd $GITHUB_WORKSPACE
           python3 -m pip install --upgrade pip
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
@@ -39,7 +40,9 @@ jobs:
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
       - name: test ubuntu 20.04
-        run: make test-ubuntu20.04
+        run: |
+          cd $GITHUB_WORKSPACE
+          make test-ubuntu20.04
       - name: test debian 10
         run: |
           cd $GITHUB_WORKSPACE
