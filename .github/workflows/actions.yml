@@ -19,6 +19,7 @@ jobs:
     steps:
       - name: install docker
         run: |
+          mkdir -p ~/.docker/machine/cache
           brew install docker-machine docker
           docker info
           docker-machine restart
