@@ -18,14 +18,12 @@ build:
 test-ubuntu20.04:
 	ansible-playbook provision.yml --extra-vars "ssh_keys=$(ANSIBLE_SSH_KEY) label=ubuntu_$(DATETIME) image=$(UBUNTU_IMAGE)"
 	ansible-playbook -i hosts site.yml
-	ansible-playbook -i hosts destroy.yml
+	ansible-playbook destroy.yml
 
 test-debian10:
 	ansible-playbook provision.yml --extra-vars "ssh_keys=$(ANSIBLE_SSH_KEY) label=debian_$(DATETIME) image=$(DEBIAN_IMAGE)"
 	ansible-playbook -i hosts site.yml
-	ansible-playbook -i hosts destroy.yml
+	ansible-playbook destroy.yml
 
-clean:
-	cd ../
-	rm -rf *
+test: test-ubuntu20.04 test-debian10
 

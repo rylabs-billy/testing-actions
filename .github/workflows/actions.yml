@@ -18,8 +18,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        #with:
-        #  path: mariadb-galera-ansible
+        with:
+          fetch-depth: 1
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -35,15 +35,11 @@ jobs:
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
       - name: setup ansible environment
-        run: |
-          cd $GITHUB_WORKSPACE
-          make build
+        run: make build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
       - name: test ubuntu 20.04
-        run: |
-          cd $GITHUB_WORKSPACE
-          make test-ubuntu20.04
+        run: make test-ubuntu20.04
       - name: test debian 10
         run: |
           cd $GITHUB_WORKSPACE
