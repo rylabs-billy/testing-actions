@@ -14,6 +14,7 @@ build:
 	curl -so $(VARS_PATH) $(VARS_URL)
 	ansible-vault encrypt_string "$(ROOT_PASS)" --name 'root_pass' > $(SECRET_VARS_PATH)
 	ansible-vault encrypt_string "$(TOKEN)" --name 'token' >> $(SECRET_VARS_PATH)
+	ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
 test-ubuntu20.04:
 	ansible-playbook provision.yml --extra-vars "ssh_keys=$(ANSIBLE_SSH_KEY) label=ubuntu_$(DATETIME) image=$(UBUNTU_IMAGE)"
