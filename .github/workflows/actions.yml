@@ -9,21 +9,14 @@ on:
       - main
 jobs:
   build:
-    runs-on: macos-11
-    #runs-on: ubuntu-latest
+    #runs-on: macos-11
+    runs-on: ubuntu-latest
     strategy:
       max-parallel: 2
       matrix:
         python-version: [3.9]
 
     steps:
-      - name: install docker
-        run: |
-          mkdir -p ~/.docker/machine/cache
-          brew install docker-machine docker
-          docker-machine create --driver virtualbox default
-          docker-machine env default
-          docker info
       - uses: actions/checkout@v2
         with:
           path: molecule_test
@@ -38,7 +31,6 @@ jobs:
           diff -w <(echo "$test_vars") <(echo "$galera_ansible_vars")
       - name: Install dependencies
         run: |
-          brew install docker docker-machine
           cd molecule_test
           python3 -m pip install --upgrade pip
           python3 -m pip install wheel==0.37.0
