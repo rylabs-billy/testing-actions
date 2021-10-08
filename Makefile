@@ -11,9 +11,6 @@ UBUNTU_IMAGE := linode/ubuntu20.04
 DEBIAN_IMAGE := linode/debian10
 
 build:
- 	python3 -m pip install --upgrade pip
-    python3 -m pip install wheel==0.37.0
-    python3 -m pip install -r requirements.txt
 	curl -so $(VARS_PATH) $(VARS_URL)
 	ansible-vault encrypt_string "$(ROOT_PASS)" --name 'root_pass' > $(SECRET_VARS_PATH)
 	ansible-vault encrypt_string "$(TOKEN)" --name 'token' >> $(SECRET_VARS_PATH)
