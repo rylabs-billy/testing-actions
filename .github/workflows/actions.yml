@@ -24,7 +24,9 @@ jobs:
           hdiutil attach VirtualBox-6.1.26-145957-OSX.dmg
           sudo installer -pkg /Volumes/VirtualBox/VirtualBox.pkg -target /Volumes/Macintosh\ HD
           rm VirtualBox-6.1.26-145957-OSX.dmg
-          sudo "/Library/Application Support/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh" restart
+          spctl kext-consent add VB5E2TV963
+          #sudo "/Library/Application Support/VirtualBox/LaunchDaemons/VirtualBoxStartup.sh" restart
+          #VBoxManage hostonlyif create
           brew install docker
           doxker info
           docker-machine create --driver virtualbox default
