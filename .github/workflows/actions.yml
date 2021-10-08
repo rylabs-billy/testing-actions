@@ -21,8 +21,6 @@ jobs:
         run: |
           mkdir -p ~/.docker/machine/cache
           brew install docker-machine docker
-          docker-machine env default
-          docker-machine restart
           docker info
       - uses: actions/checkout@v2
         with:
