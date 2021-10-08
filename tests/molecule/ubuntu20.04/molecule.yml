@@ -30,7 +30,7 @@ platforms:
     #memory: 4G
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /var/lib/mysql:/var/lib/mysql:rw
+      #- /var/lib/mysql:/var/lib/mysql:rw
     groups:
       - galera_servers
   - name: galera2
@@ -53,7 +53,7 @@ platforms:
     #memory: 4G
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /var/lib/mysql:/var/lib/mysql:rw
+      #- /var/lib/mysql:/var/lib/mysql:rw
     groups:
       - galera_servers
   - name: galera3
@@ -76,7 +76,7 @@ platforms:
     #memory: 4G
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /var/lib/mysql:/var/lib/mysql:rw
+      #- /var/lib/mysql:/var/lib/mysql:rw
     groups:
       - galera_servers
 provisioner:

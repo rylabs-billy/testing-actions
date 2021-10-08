@@ -20,27 +20,31 @@ jobs:
       - uses: actions/checkout@v2
         #with:
         #  path: mariadb-galera-ansible
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Test ansible vars
+      - name: check integrity of ansible vars and makefile
         run: |
-          test_vars=$(cat $GITHUB_WORKSPACE/group_vars/galera/vars)
-          galera_ansible_vars=$(curl -s https://gist.githubusercontent.com/linodeproservices/85d4b26ea990b69360c0f03c3e39c851/raw/2f768d2de0042b09f5a9502dedc6f321abb287b9/galera_ansible_vars)
-          diff -w <(echo "$test_vars") <(echo "$galera_ansible_vars")
-          echo $test_vars
-      - name: Install dependencies
+          curl -so vars_file https://gist.githubusercontent.com/linodeproservices/85d4b26ea990b69360c0f03c3e39c851/raw/2f768d2de0042b09f5a9502dedc6f321abb287b9/galera_ansible_vars)
+          vars_hash=$(echo "915a043d0c8da1939e0b4bc71508084b51ec8a1a2df4d4ec319026e2a4d57c09 vars_file" | sha256sum -c)
+          if [ "$vars_hash" != "vars_file: OK" ]; then exit 1; fi
+      - name: install dependencies
         run: |
-          cd molecule_test
           python3 -m pip install --upgrade pip
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
-      - name: 'Test Ubuntu 20.04'
+      - name: setup ansible environment
         run: |
-          cd molecule_test/tests
-          molecule test -s ubuntu20.04
-      - name: 'Test Debian 10'
+          cd $GITHUB_WORKSPACE
+          make build
+        env:
+          TOKEN: ${{ secrets.LINODE_API_TOKEN }}
+      - name: test ubuntu 20.04
         run: |
-          cd molecule_test/tests
-          molecule test -s debian10
+          cd $GITHUB_WORKSPACE
+          make test-ubuntu20.04
+      - name: test debian 10
+        run: |
+          cd $GITHUB_WORKSPACE
+          make test-debian10
