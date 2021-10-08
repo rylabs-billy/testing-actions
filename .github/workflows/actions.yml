@@ -21,9 +21,9 @@ jobs:
         run: |
           mkdir -p ~/.docker/machine/cache
           brew install docker-machine docker
-          docker info
           docker-machine restart
           docker-machine env default
+          docker info
       - uses: actions/checkout@v2
         with:
           path: molecule_test
