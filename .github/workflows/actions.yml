@@ -21,6 +21,8 @@ jobs:
         run: |
           mkdir -p ~/.docker/machine/cache
           brew install docker-machine docker
+          docker-machine create --driver virtualbox default
+          docker-machine env default
           docker info
       - uses: actions/checkout@v2
         with:
