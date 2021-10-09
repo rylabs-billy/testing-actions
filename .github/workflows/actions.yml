@@ -38,8 +38,6 @@ jobs:
       - name: build ansible environment
         run: |
           cd $GITHUB_WORKSPACE
-          export TOKEN=$TOKEN
-          export VAULT_PASS=$VAULT_PASS
           ./run.sh build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
