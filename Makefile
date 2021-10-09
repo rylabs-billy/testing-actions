@@ -9,7 +9,7 @@ SECRET_VARS_PATH := ./group_vars/galera/secret_vars
 ANSIBLE_VAULT_PASS := $(shell openssl rand -base64 32)
 UBUNTU_IMAGE := linode/ubuntu20.04
 DEBIAN_IMAGE := linode/debian10
-
+echo $(ANSIBLE_SSH_KEY)
 build:
 	curl -so $(VARS_PATH) $(VARS_URL)
 	ansible-vault encrypt_string "$(ROOT_PASS)" --name 'root_pass' > $(SECRET_VARS_PATH)
@@ -17,6 +17,7 @@ build:
 	ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
 test-ubuntu20.04:
+	echo $(ANSIBLE_SSH_KEY)
 	ansible-playbook provision.yml --extra-vars "ssh_keys=$(ANSIBLE_SSH_KEY) label=ubuntu_$(DATETIME) image=$(UBUNTU_IMAGE)" --flush-cache
 	ansible-playbook -i hosts site.yml
 	ansible-playbook destroy.yml
