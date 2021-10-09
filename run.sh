@@ -38,13 +38,13 @@ function build {
 }
 
 function test_ubuntu2004 {
-    ansible-playbook provision.yml --extra-vars "ssh_keys=${SSH_PUB_KEY} galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}" --flush-cache
-	ansible-playbook -i hosts site.yml -vvv
+    ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}" --flush-cache
+	ansible-playbook -i hosts site.yml
 	ansible-playbook -i hosts destroy.yml
 }
 
 function test_debian10 {
-    ansible-playbook provision.yml --extra-vars "ssh_keys=${SSH_PUB_KEY} galera_prefix=ubuntu_${DATETIME} image=${DEBIAN_IMAGE}" --flush-cache
+    ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=ubuntu_${DATETIME} image=${DEBIAN_IMAGE}" --flush-cache
 	ansible-playbook -i hosts --private-key "${SSH_PRIV_KEY}" site.yml 
 	ansible-playbook -i hosts destroy.yml
 }
