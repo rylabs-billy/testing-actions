@@ -19,7 +19,6 @@ function build {
     ANSIBLE_VAULT_PASS=$(openssl rand -base64 32)
     UBUNTU_IMAGE="linode/ubuntu20.04"
     DEBIAN_IMAGE="linode/debian10"
-    TOKEN="5a07c8d78bef568a9e4c99c943ad612df7c804d4fa5a30eefc4c1ae8cf1709ed"
 
     curl -so ${VARS_PATH} ${VARS_URL}
 	echo "${ANSIBLE_VAULT_PASS}" > ./vault-pass
@@ -29,17 +28,16 @@ function build {
 }
 
 function test_ubuntu2004 {
-    ansible-playbook provision.yml --extra-vars "ssh_keys=${ANSIBLE_SSH_KEY} label=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}" --flush-cache
+    ansible-playbook provision.yml --extra-vars "ssh_keys=${ANSIBLE_SSH_KEY} galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}" --flush-cache
 	ansible-playbook -i hosts site.yml
 	ansible-playbook destroy.yml
 }
 
 function test_debian10 {
-    ansible-playbook provision.yml --extra-vars "ssh_keys=${ANSIBLE_SSH_KEY} label=ubuntu_${DATETIME} image=$DEBIAN_IMAGE}" --flush-cache
+    ansible-playbook provision.yml --extra-vars "ssh_keys=${ANSIBLE_SSH_KEY} galera_prefix=ubuntu_${DATETIME} image=${DEBIAN_IMAGE}" --flush-cache
 	ansible-playbook -i hosts site.yml
 	ansible-playbook destroy.yml
 }
-
 
 case $1 in
     build) "$@"; exit;;
