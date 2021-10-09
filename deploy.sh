@@ -39,17 +39,15 @@ function test_debian10 {
 	ansible-playbook destroy.yml
 }
 
-function main {
-    case $1 in
-        build) "$@"; exit;;
-        test_ubuntu2004) "$@"; exit;;
-        test_debian10) "$@"; exit;;
-    esac
-}
+
+case $1 in
+    build) "$@"; exit;;
+    test_ubuntu2004) "$@"; exit;;
+    test_debian10) "$@"; exit;;
+esac
 
 # main
-main
-
-
-
+build
+test_ubuntu2004
+test_debian10
 
