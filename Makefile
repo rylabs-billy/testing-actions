@@ -13,6 +13,7 @@ DEBIAN_IMAGE := linode/debian10
 
 build:
 	curl -so $(VARS_PATH) $(VARS_URL)
+	echo "$(VAULT_PASS)" > vault-pass
 	ansible-vault encrypt_string "$(ROOT_PASS)" --name 'root_pass' > $(SECRET_VARS_PATH)
 	ansible-vault encrypt_string "$(TOKEN)" --name 'token' >> $(SECRET_VARS_PATH)
 	ansible-galaxy collection install linode.cloud community.crypto community.mysql

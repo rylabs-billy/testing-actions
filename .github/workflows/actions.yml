@@ -38,9 +38,11 @@ jobs:
       - name: setup ansible environment
         run: |
           export TOKEN=$TOKEN
+          export VAULT_PASS=$VAULT_PASS
           make build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
+          VAULT_PASS: ${{ secrets.VAULT_PASS }}
       - name: test ubuntu 20.04
         run: |
           cd $GITHUB_WORKSPACE
