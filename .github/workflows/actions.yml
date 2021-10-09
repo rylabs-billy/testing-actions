@@ -18,15 +18,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        #with:
-        #  fetch-depth: 1
+        with:
+          fetch-depth: 1
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - name: check integrity of ansible vars and makefile
         run: |
-          echo "53f93fb473e306bdb40b503229c40464cf60e0e2188d58875a8532e50c7c77b0 $GITHUB_WORKSPACE/group_vars/galera/vars" | sha256sum -c
+          echo "53f93fb473e306bdb40b503229c40464cf60e0e2188d58875a8532e50c7c77b0 group_vars/galera/vars" | sha256sum -c
       - name: install dependencies
         run: |
           sudo apt update
