@@ -1,10 +1,10 @@
 # linode vars
-ssh_keys: $(ANSIBLE_SSH_KEY)
+ssh_keys: ssh-rsa AAAA_valid_public_ssh_key_123456785== user@their-computer
 galera_prefix: galera
 cluster_name: OCC
 type: g6-standard-2
 region: us-southeast
-image: $(IMAGE)
+image: linode/debian10
 group: occ_test
 linode_tags: occ_test
 
