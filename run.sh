@@ -28,7 +28,7 @@ function build {
 	echo "${ANSIBLE_VAULT_PASS}" > ./vault-pass
 	ansible-vault encrypt_string "${ROOT_PASS}" --name 'root_pass' > ${SECRET_VARS_PATH}
 	ansible-vault encrypt_string "${TOKEN}" --name 'token' >> ${SECRET_VARS_PATH}
-    #echo "private_key_file = $HOME/.ssh/id_ansible_ed25519" >> ansible.cfg # new
+    echo "private_key_file = $HOME/.ssh/id_ansible_ed25519" >> ansible.cfg # new
     ansible-galaxy collection install linode.cloud community.crypto community.mysql
     # add ssh keys
     chmod 700 ${HOME}/.ssh
@@ -39,7 +39,7 @@ function build {
 
 function test_ubuntu2004 {
     ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}" --flush-cache
-	ansible-playbook -i hosts site.yml
+	ansible-playbook -i hosts site.yml -v
 	ansible-playbook -i hosts destroy.yml
 }
 
