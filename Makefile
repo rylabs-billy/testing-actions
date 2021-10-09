@@ -29,6 +29,4 @@ test-debian10:
 
 test:
 	echo $(ANSIBLE_SSH_KEY)
-	echo $(ROOT_PASS)
-	ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "$(HOME)/.ssh/id_ansible_ed25519" -P '' & cat $(HOME)/.ssh/id_ansible_ed25519.pub
 
