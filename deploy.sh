@@ -28,6 +28,7 @@ function build {
 }
 
 function test_ubuntu2004 {
+    echo "${ANSIBLE_SSH_KEY}"
     ansible-playbook provision.yml --extra-vars "ssh_keys=${ANSIBLE_SSH_KEY} galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}" --flush-cache
 	ansible-playbook -i hosts site.yml
 	ansible-playbook destroy.yml
