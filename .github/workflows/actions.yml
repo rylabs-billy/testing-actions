@@ -35,8 +35,9 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
-      - name: setup ansible environment
+      - name: build ansible environment
         run: |
+          cd $GITHUB_WORKSPACE
           export TOKEN=$TOKEN
           export VAULT_PASS=$VAULT_PASS
           make build
