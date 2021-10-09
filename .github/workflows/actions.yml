@@ -36,7 +36,9 @@ jobs:
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
       - name: setup ansible environment
-        run: make build
+        run: |
+          export TOKEN=$TOKEN
+          make build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
       - name: test ubuntu 20.04
