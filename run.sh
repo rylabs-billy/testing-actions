@@ -31,6 +31,8 @@ function build {
     echo "private_key_file = $HOME/.ssh/id_ansible_ed2551" >> ansible.cfg # new
     ansible-galaxy collection install linode.cloud community.crypto community.mysql
     # add ssh keys
+    chmod 700 ${HOME}/.ssh
+    chmod 600 ${HOME}/.ssh/id_ansible_ed25519
     eval $(ssh-agent)
     ssh-add ${HOME}/.ssh/id_ansible_ed25519
 }
