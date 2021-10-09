@@ -30,6 +30,9 @@ function build {
 	ansible-vault encrypt_string "${TOKEN}" --name 'token' >> ${SECRET_VARS_PATH}
     echo "private_key_file = $HOME/.ssh/id_ansible_ed2551" >> ansible.cfg # new
     ansible-galaxy collection install linode.cloud community.crypto community.mysql
+    # add ssh keys
+    eval $(ssh-agent)
+    ssh-add ${SSH_PRIV_KEY}
 }
 
 function test_ubuntu2004 {
