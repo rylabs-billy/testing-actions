@@ -34,10 +34,10 @@ function build {
     
     # add ssh keys
     chmod 700 ${HOME}/.ssh
-    chmod 600 ${HOME}/.ssh/id_ansible_ed25519
+    chmod 600 ${SSH_KEY_PATH}
     eval $(ssh-agent)
-    ssh-add ${HOME}/.ssh/id_ansible_ed25519
-    echo "private_key_file = $HOME/.ssh/id_ansible_ed25519" >> ansible.cfg
+    ssh-add ${SSH_KEY_PATH}
+    echo "private_key_file = ${SSH_KEY_PATH}" >> ansible.cfg
 }
 
 function test:ubuntu2004 {

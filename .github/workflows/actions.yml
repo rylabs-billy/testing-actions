@@ -34,8 +34,9 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
+          cp run.sh
       - name: build ansible environment
-        run: run.sh build
+        run: ./run.sh build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
