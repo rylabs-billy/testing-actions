@@ -32,7 +32,7 @@ function build {
     ansible-galaxy collection install linode.cloud community.crypto community.mysql
     # add ssh keys
     eval $(ssh-agent)
-    ssh-add ${SSH_PRIV_KEY}
+    ssh-add ${HOME}/.ssh/id_ansible_ed25519
 }
 
 function test_ubuntu2004 {
