@@ -4,6 +4,8 @@ trap "cleanup $? $LINENO" EXIT
 
 function cleanup {
   if [ "$?" != "0" ]; then
+    echo "Error! Destroying nodes."
+    ansible-playbook -i hosts destroy.yml
     echo "PIPELINE FAILED."
     exit 1
   fi
@@ -32,13 +34,13 @@ function test_ubuntu2004 {
     echo "${ANSIBLE_SSH_KEY}"
     ansible-playbook provision.yml --extra-vars "ssh_keys=${ANSIBLE_SSH_KEY} galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}" --flush-cache
 	ansible-playbook -i hosts site.yml
-	ansible-playbook destroy.yml
+	ansible-playbook -i hosts destroy.yml
 }
 
 function test_debian10 {
     ansible-playbook provision.yml --extra-vars "ssh_keys=${ANSIBLE_SSH_KEY} galera_prefix=ubuntu_${DATETIME} image=${DEBIAN_IMAGE}" --flush-cache
 	ansible-playbook -i hosts site.yml
-	ansible-playbook destroy.yml
+	ansible-playbook -i hosts destroy.yml
 }
 
 case $1 in
