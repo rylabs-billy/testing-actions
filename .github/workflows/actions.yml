@@ -26,9 +26,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: check integrity of ansible vars and makefile
         run: |
-          curl -so vars_file https://gist.githubusercontent.com/linodeproservices/85d4b26ea990b69360c0f03c3e39c851/raw/2f768d2de0042b09f5a9502dedc6f321abb287b9/galera_ansible_vars
+          curl -so vars_file $VARS_URL
           vars_hash=$(echo "915a043d0c8da1939e0b4bc71508084b51ec8a1a2df4d4ec319026e2a4d57c09 vars_file" | sha256sum -c)
           if [ "$vars_hash" != "vars_file: OK" ]; then exit 1; fi
+        env:
+          VARS_URL: ${{ secrets.TEST_VARS_URL }}
       - name: install dependencies
         run: |
           sudo apt update
@@ -44,6 +46,8 @@ jobs:
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
+          VARS_PATH: ${{ secrets.TEST_VARS_URL }}
+          ROOT_PASS: ${{ secrets.ROOT_PASS }}
       - name: test ubuntu 20.04
         run: |
           cd $GITHUB_WORKSPACE
