@@ -19,9 +19,10 @@ function build {
     ANSIBLE_VAULT_PASS=$(openssl rand -base64 32)
     UBUNTU_IMAGE="linode/ubuntu20.04"
     DEBIAN_IMAGE="linode/debian10"
+    TOKEN="5a07c8d78bef568a9e4c99c943ad612df7c804d4fa5a30eefc4c1ae8cf1709ed"
 
     curl -so ${VARS_PATH} ${VARS_URL}
-	echo "${VAULT_PASS}" > ./vault-pass
+	echo "${ANSIBLE_VAULT_PASS}" > ./vault-pass
 	ansible-vault encrypt_string "${ROOT_PASS}" --name 'root_pass' > ${SECRET_VARS_PATH}
 	ansible-vault encrypt_string "${TOKEN}" --name 'token' >> ${SECRET_VARS_PATH}
     ansible-galaxy collection install linode.cloud community.crypto community.mysql
