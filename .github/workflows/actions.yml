@@ -24,21 +24,18 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: check integrity of ansible vars and makefile
+      - name: check integrity of ansible vars
         run: |
           echo "53f93fb473e306bdb40b503229c40464cf60e0e2188d58875a8532e50c7c77b0 group_vars/galera/vars" | sha256sum -c
       - name: install dependencies
         run: |
           sudo apt update
           sudo apt install openssh-server -y
-          cd $GITHUB_WORKSPACE
           python3 -m pip install --upgrade pip
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
       - name: build ansible environment
-        run: |
-          cd $GITHUB_WORKSPACE
-          ./run.sh build
+        run: run.sh build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
