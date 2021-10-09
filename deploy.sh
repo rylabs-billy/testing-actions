@@ -12,7 +12,7 @@ function cleanup {
 # global constants
 readonly ANSIBLE_SSH_KEY=$(ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "${HOME}/.ssh/id_ansible_ed25519" -q -N "" <<<y >/dev/null && cat ${HOME}/.ssh/id_ansible_ed25519.pub)
 readonly ROOT_PASS=$(openssl rand -base64 32)
-readonly DATETIME=$(date '+%Y-%m-%d_%H:%M:%S')
+readonly DATETIME=$(date '+%Y-%m-%d_%H%M%S')
 readonly VARS_URL="https://gist.githubusercontent.com/rylabs-billy/58333048d8c2b39cd55b8b08de4e1ac0/raw/ec7a63a3eb95c37fc20f64a6ccdacfd472acc37c/galera_test_vars"
 readonly VARS_PATH="./group_vars/galera/vars"
 readonly SECRET_VARS_PATH="./group_vars/galera/secret_vars"
