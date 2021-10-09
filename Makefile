@@ -1,4 +1,5 @@
 # makefile
+SHELL = /bin/bash
 
 ANSIBLE_SSH_KEY := $(shell ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "$(HOME)/.ssh/id_ansible_ed25519" -q -N "" <<<y >/dev/null && cat $(HOME)/.ssh/id_ansible_ed25519.pub)
 ROOT_PASS := $(shell openssl rand -base64 32)
