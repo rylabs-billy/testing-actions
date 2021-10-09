@@ -1,6 +1,6 @@
 # makefile
 
-ANSIBLE_SSH_KEY := $(shell ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "$(HOME)/.ssh/id_ansible_ed25519" -P '' <<<y > /dev/null && cat $(HOME)/.ssh/id_ansible_ed25519.pub)
+ANSIBLE_SSH_KEY := $(shell ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "$(HOME)/.ssh/id_ansible_ed25519" -q -N "" && cat $(HOME)/.ssh/id_ansible_ed25519.pub)
 ROOT_PASS := $(shell openssl rand -base64 32)
 DATETIME := $(shell date '+%Y-%m-%d_%H:%M:%S')
 VARS_URL := "https://gist.githubusercontent.com/rylabs-billy/58333048d8c2b39cd55b8b08de4e1ac0/raw/b3cde7b716d7ce49cd6b486d86ab00d6f3f91018/galera_test_vars"
@@ -9,7 +9,7 @@ SECRET_VARS_PATH := ./group_vars/galera/secret_vars
 ANSIBLE_VAULT_PASS := $(shell openssl rand -base64 32)
 UBUNTU_IMAGE := linode/ubuntu20.04
 DEBIAN_IMAGE := linode/debian10
-echo $(ANSIBLE_SSH_KEY)
+
 build:
 	curl -so $(VARS_PATH) $(VARS_URL)
 	ansible-vault encrypt_string "$(ROOT_PASS)" --name 'root_pass' > $(SECRET_VARS_PATH)
@@ -28,8 +28,7 @@ test-debian10:
 	ansible-playbook destroy.yml
 
 test:
-	echo $(ANSIBLE_SSH_KE)
+	echo $(ANSIBLE_SSH_KEY)
 	echo $(ROOT_PASS)
-	key := $(shell ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "$(HOME)/.ssh/id_ansible_ed25519" -P '' <<<y > /dev/null && cat $(HOME)/.ssh/id_ansible_ed25519.pub)
-	echo $(key)
+	ssh-keygen -o -a 100 -t ed25519 -C "ansible" -f "$(HOME)/.ssh/id_ansible_ed25519" -P '' & cat $(HOME)/.ssh/id_ansible_ed25519.pub
 
