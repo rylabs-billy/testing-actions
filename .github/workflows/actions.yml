@@ -34,18 +34,15 @@ jobs:
           python3 -m pip install --upgrade pip
           python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
+          ansible-galaxy collection install linode.cloud community.crypto community.mysql
       - name: build ansible environment
         run: ./run.sh build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
-          VARS_PATH: ${{ secrets.TEST_VARS_URL }}
+          VARS_URL: ${{ secrets.TEST_VARS_URL }}
           ROOT_PASS: ${{ secrets.ROOT_PASS }}
       - name: test ubuntu 20.04
-        run: |
-          cd $GITHUB_WORKSPACE
-          ./run.sh test_ubuntu2004
+        run: ./run.sh test:ubuntu2004
       - name: test debian 10
-        run: |
-          cd $GITHUB_WORKSPACE
-          ./run.sh test_debian10
+        run: ./run.sh test:debian10
