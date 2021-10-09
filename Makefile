@@ -17,6 +17,7 @@ build:
 	ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
 test-ubuntu20.04:
+	cat ./group_vars/galera/vars
 	ansible-playbook provision.yml --extra-vars "ssh_keys=$(ANSIBLE_SSH_KEY) label=ubuntu_$(DATETIME) image=$(UBUNTU_IMAGE)"
 	ansible-playbook -i hosts site.yml
 	ansible-playbook destroy.yml
