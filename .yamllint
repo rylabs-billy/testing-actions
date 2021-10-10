@@ -31,3 +31,6 @@ rules:
     type: unix
   trailing-spaces: disable
   truthy: disable
+  exclude_paths: |
+    tests
+    .github

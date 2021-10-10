@@ -1,5 +1,5 @@
 ---
-name: Ubuntu 20.04
+name: Test Ubuntu 20.04
 on:
   push:
     branches:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python-version: [3.8,3.9]
+        python-version: [3.8, 3.9]
 
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +34,6 @@ jobs:
           sudo apt update
           sudo apt install openssh-server -y
           python3 -m pip install --upgrade pip
-          python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
           ansible-galaxy collection install linode.cloud community.crypto community.mysql
 

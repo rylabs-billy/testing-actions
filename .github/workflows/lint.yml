@@ -24,8 +24,8 @@ jobs:
       - name: install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install wheel==0.37.0
           python3 -m pip install -r requirements.txt
+          ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
       - name: run linters
         run: ./run.sh test:lint 
