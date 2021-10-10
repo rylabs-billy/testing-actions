@@ -4,5 +4,6 @@ skip_list:
   - no-changed-when
   - no-jinja-when
 exclude_paths:
-  - tests
-  - .github
+  - .cache/
+  - .github/
+  - tests/

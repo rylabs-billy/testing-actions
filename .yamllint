@@ -2,6 +2,11 @@
 # Based on ansible-lint config
 extends: default
 
+ignore: |
+  .github/*
+  .cache/*
+  tests/*
+
 rules:
   braces:
     max-spaces-inside: 1
@@ -31,6 +36,3 @@ rules:
     type: unix
   trailing-spaces: disable
   truthy: disable
-  exclude_paths: |
-    tests
-    .github
