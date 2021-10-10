@@ -19,7 +19,7 @@ jobs:
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: 3.9
 
       - name: copy run script to path
         run: |
@@ -30,6 +30,7 @@ jobs:
       - name: integrity checks
         run: |
           echo "53f93fb473e306bdb40b503229c40464cf60e0e2188d58875a8532e50c7c77b0 group_vars/galera/vars" | sha256sum -c
+          echo "806c4588804cd0e8fe336ef7ac63f6784b492cff7c76e920445cb7572206378e scripts/run.sh" | sha256sum -c
           
       - name: install dependencies
         run: |

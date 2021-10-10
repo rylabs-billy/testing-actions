@@ -21,6 +21,12 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: copy run script to path
+        run: |
+          mkdir -p $HOME/.local/bin
+          cp scripts/run.sh $HOME/.local/bin/run
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
       - name: install dependencies
         run: |
           python3 -m pip install --upgrade pip
@@ -28,4 +34,4 @@ jobs:
           ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
       - name: run linters
-        run: ./run.sh test:lint 
+        run: run test:lint 
