@@ -22,7 +22,7 @@ readonly UBUNTU_IMAGE="linode/ubuntu20.04"
 readonly DEBIAN_IMAGE="linode/debian10"
 
 function destroy {
-    ansible-playbook -i hosts destroy.yml --extra-vars "galera_prefix=ubuntu_${DATETIME}"
+    ansible-playbook -i hosts destroy.yml --extra-vars "galera_prefix=${DISTRO}_${DATETIME}"
 }
 
 function build {
@@ -39,38 +39,40 @@ function build {
     echo "private_key_file = ${SSH_KEY_PATH}" >> ansible.cfg
 }
 
-function test:lint {
+function lint {
   yamllint .
   ansible-lint
   flake8
 }
 
-function test:verify {
+function verify {
     ansible-playbook -i hosts verify.yml
-    destroy
+    destroy ${1}
 }
 
 function test:ubuntu2004 {
+    DISTRO="ubuntu"
     ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}"
 	ansible-playbook -i hosts site.yml
+    verify ${DISTRO}
 	
 }
 
 function test:debian10 {
+    DISTRO="debian"
     ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=debian_${DATETIME} image=${DEBIAN_IMAGE}"
 	ansible-playbook -i hosts site.yml
+    verify ${DISTRO}
 }
 
 case $1 in
     build) "$@"; exit;;
-    test:lint) "$@"; exit;;
-    test:verify) "$@"; exit;;
+    lint) "$@"; exit;;
     test:ubuntu2004) "$@"; exit;;
     test:debian10) "$@"; exit;;
 esac
 
 # main
 lint
-verify
 build
 test

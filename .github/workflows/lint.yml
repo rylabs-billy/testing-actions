@@ -34,4 +34,4 @@ jobs:
           ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
       - name: run linters
-        run: run test:lint 
+        run: run lint 
