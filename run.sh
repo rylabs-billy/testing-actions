@@ -25,12 +25,6 @@ function destroy {
     ansible-playbook -i hosts destroy.yml --extra-vars "galera_prefix=ubuntu_${DATETIME}"
 }
 
-function lint {
-  yamllint .
-  ansible-lint
-  flake8
-}
-
 function build {
     curl -so ${VARS_PATH} ${VARS_URL}
 	echo "${VAULT_PASS}" > ./vault-pass
@@ -43,6 +37,16 @@ function build {
     eval $(ssh-agent)
     ssh-add ${SSH_KEY_PATH}
     echo "private_key_file = ${SSH_KEY_PATH}" >> ansible.cfg
+}
+
+function test:lint {
+  yamllint .
+  ansible-lint
+  flake8
+}
+
+function test:verify {
+    ansible-playbook -i hosts verify.yml
 }
 
 function test:ubuntu2004 {
@@ -60,10 +64,14 @@ function test:debian10 {
 
 case $1 in
     build) "$@"; exit;;
+    test:lint) "$@"; exit;;
+    test:verify) "$@"; exit;;
     test:ubuntu2004) "$@"; exit;;
     test:debian10) "$@"; exit;;
 esac
 
 # main
+lint
+verify
 build
 test
