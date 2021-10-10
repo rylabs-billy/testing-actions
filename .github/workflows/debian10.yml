@@ -10,10 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 2
-      matrix:
-        python-version: [3.8, 3.9]
 
     steps:
       - uses: actions/checkout@v2
@@ -23,7 +19,13 @@ jobs:
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.9'
+
+      - name: copy run script to path
+        run: |
+          mkdir -p $HOME/.local/bin
+          cp scripts/run.sh $HOME/.local/bin/run
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: integrity checks
         run: |
@@ -38,7 +40,7 @@ jobs:
           ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
       - name: build ansible environment
-        run: ./run.sh build
+        run: run build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
           VAULT_PASS: ${{ secrets.VAULT_PASS }}
@@ -46,7 +48,7 @@ jobs:
           ROOT_PASS: ${{ secrets.ROOT_PASS }}
 
       - name: test debian 10
-        run: ./run.sh test:debian10
+        run: run test:debian10
 
       - name: verify
-        run: ./run.sh test:verify
+        run: run test:verify

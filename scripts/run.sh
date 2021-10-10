@@ -47,19 +47,18 @@ function test:lint {
 
 function test:verify {
     ansible-playbook -i hosts verify.yml
+    destroy
 }
 
 function test:ubuntu2004 {
     ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=ubuntu_${DATETIME} image=${UBUNTU_IMAGE}"
 	ansible-playbook -i hosts site.yml
-    destroy
 	
 }
 
 function test:debian10 {
     ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=debian_${DATETIME} image=${DEBIAN_IMAGE}"
 	ansible-playbook -i hosts site.yml
-	destroy
 }
 
 case $1 in
