@@ -38,42 +38,12 @@
 - name: systemd daemon reload
   systemd:
     daemon_reload: yes
-  #tags: molecule-notest
 
-- name: starting mysql
-  block:
-    #- name: try me 
-    #  shell: mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/
-    - name: Sleep for 20 seconds and continue with play
-      wait_for:
-        timeout: 20
-
-    - name: start mysql
-      systemd:
-        name: mysql
-        state: restarted
-        #enabled: yes
-      #until: result.status.Result == success
-      retries: 3
-      delay: 3
-      until: result is not failed
-
-    #- name: print status
-    #  debug:
-    #    var: result.status.Result
-
-  rescue:
-    - name: Populate service facts
-      service_facts:
-
-    - name: Print journalctl
-      shell: journalctl -xe | tail -n 100
-      register: info
-
-    - name: print info
-      debug:
-        var: info.stdout_lines
-
+- name: start mysql
+  systemd:
+    name: mysql
+    state: restarted
+ 
 - name: run db queries
   mysql_query:
     login_user: root

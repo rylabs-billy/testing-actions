@@ -25,6 +25,12 @@ function destroy {
     ansible-playbook -i hosts destroy.yml --extra-vars "galera_prefix=ubuntu_${DATETIME}"
 }
 
+function lint {
+  yamllint .
+  ansible-lint
+  flake8
+}
+
 function build {
     curl -so ${VARS_PATH} ${VARS_URL}
 	echo "${VAULT_PASS}" > ./vault-pass
