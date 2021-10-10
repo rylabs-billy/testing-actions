@@ -1,5 +1,5 @@
 ---
-name: Run Linter
+name: Linter
 on:
   push:
     branches:

@@ -1,5 +1,5 @@
 ---
-name: Test Debian 10
+name: Debian 10
 on:
   push:
     branches:
@@ -48,5 +48,5 @@ jobs:
       - name: test debian 10
         run: ./run.sh test:debian10
 
-      - name: verify replication
+      - name: verify
         run: ./run.sh test:verify

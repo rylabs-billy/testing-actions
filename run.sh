@@ -57,7 +57,7 @@ function test:ubuntu2004 {
 }
 
 function test:debian10 {
-    ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=ubuntu_${DATETIME} image=${DEBIAN_IMAGE}"
+    ansible-playbook provision.yml --extra-vars "ssh_keys=\"${SSH_PUB_KEY}\" galera_prefix=debian_${DATETIME} image=${DEBIAN_IMAGE}"
 	ansible-playbook -i hosts site.yml
 	destroy
 }
