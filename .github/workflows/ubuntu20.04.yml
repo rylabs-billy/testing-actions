@@ -30,7 +30,7 @@ jobs:
       - name: integrity checks
         run: |
           echo "53f93fb473e306bdb40b503229c40464cf60e0e2188d58875a8532e50c7c77b0 group_vars/galera/vars" | sha256sum -c
-          echo "6904722aa93f351d09a82dfdb445a590a8faadcd560a118aab9bacfea852356c scripts/run.sh" | sha256sum -c
+          echo "94c1de5f1e95d081f850e7f4423c98a055ff6da219e9ebad9f724d01f478e87d scripts/run.sh" | sha256sum -c
 
       - name: install dependencies
         run: |
@@ -44,9 +44,6 @@ jobs:
         run: run build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
-          VAULT_PASS: ${{ secrets.VAULT_PASS }}
-          VARS_URL: ${{ secrets.TEST_VARS_URL }}
-          ROOT_PASS: ${{ secrets.ROOT_PASS }}
 
       - name: test ubuntu 20.04
         run: run test:ubuntu2004
