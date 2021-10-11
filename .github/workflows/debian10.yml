@@ -44,6 +44,7 @@ jobs:
         run: run build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
+          VARS_URL: ${{ secrets.TEST_VARS_URL }}
 
       - name: test debian 10
         run: run test:debian10

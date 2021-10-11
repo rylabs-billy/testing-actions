@@ -44,6 +44,7 @@ jobs:
         run: run build
         env:
           TOKEN: ${{ secrets.LINODE_API_TOKEN }}
+          VARS_URL: ${{ secrets.TEST_VARS_URL }}
 
       - name: test ubuntu 20.04
         run: run test:ubuntu2004
