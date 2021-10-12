@@ -44,8 +44,8 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - machine_deps
       - run_script
+      - machine_deps
       - build
       - run: run test:ubuntu2004
 
@@ -54,8 +54,8 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - machine_deps
       - run_script
+      - machine_deps
       - build
       - run: run test:debian10
 
@@ -64,8 +64,8 @@ jobs:
       - image: jrei/systemd-ubuntu:latest
     steps:
       - checkout
-      - docker_deps
       - run_script
+      - docker_deps
       - run: run lint
       
 workflows:
