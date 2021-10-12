@@ -44,7 +44,7 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - dependencies
+      - machine_deps
       - run_script
       - build
       - run: run test:ubuntu2004
@@ -54,7 +54,7 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
-      - dependencies
+      - machine_deps
       - run_script
       - build
       - run: run test:debian10
