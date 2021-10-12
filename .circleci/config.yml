@@ -2,7 +2,7 @@ version: 2.1
 
 commands:
   machine_deps:
-    description: "install machine dependencies"
+    description: "install machine dependencies" #test
     steps:
       - run: |
           sudo apt update
