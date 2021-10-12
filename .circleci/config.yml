@@ -5,6 +5,14 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
+
+      - run:
+          name: "copy run script to path"
+          command: |
+            mkdir -p $HOME/.local/bin
+            sudo cp scripts/run.sh $HOME/.local/bin/run
+            echo "export PATH=$HOME/.local/bin:$PATH" >> $BASH_ENV
+
       - run:
           name: "install dependencies" 
           command: |
@@ -15,18 +23,12 @@ jobs:
             ansible-galaxy collection install linode.cloud community.crypto community.mysql
 
       - run:
-          name: "copy run script to path"
-          command: |
-            mkdir $HOME/.local/bin
-            sudo cp scripts/run.sh $HOME/.local/bin/run
-            echo "export PATH=$HOME/.local/bin:$PATH" >> $BASH_ENV
-
-      - run:
           name: "build"
           command: |
             export TOKEN=$TOKEN
             export VARS_URL=$VARS_URL
             run build
+
       - run:
           name: "test ubuntu 20.04"
           command: run test:ubuntu2004
@@ -40,10 +42,10 @@ jobs:
       - run:
           name: "copy run script to path"
           command: |
-            mkdir $HOME/.local/bin
+            mkdir -p $HOME/.local/bin
             sudo cp scripts/run.sh $HOME/.local/bin/run
             echo "export PATH=$HOME/.local/bin:$PATH" >> $BASH_ENV
-            
+
       - run:
           name: "install dependencies" 
           command: |
@@ -62,9 +64,34 @@ jobs:
       - run:
           name: "test ubuntu 20.04"
           command: run test:debian10
+
+  lint:
+    docker:
+      - image: jrei/systemd-ubuntu:latest
+    steps:
+      - checkout
+
+      - run:
+          name: "copy run script to path"
+          command: |
+            mkdir -p $HOME/.local/bin
+            sudo cp scripts/run.sh $HOME/.local/bin/run
+            echo "export PATH=$HOME/.local/bin:$PATH" >> $BASH_ENV
+
+      - run:
+          name: "install dependencies" 
+          command: |
+            sudo apt update
+            sudo apt install python3-distutils python3-apt python3.9 -y
+            python3.9 -m pip install --upgrade pip
+            python3.9 -m pip install -r requirements.txt
+            ansible-galaxy collection install linode.cloud community.crypto community.mysql
+      - run:
+          name: "lint"
+          command: run lint
       
 workflows:
-  ubuntu2002_and_debian10:
+  build_test_lint:
     jobs:
       - ubuntu2004:
           context:
@@ -74,3 +101,4 @@ workflows:
           context:
             - LINODE_API_TOKEN
             - TEST_VARS_URL
+      - lint
