@@ -1,8 +1,18 @@
 version: 2.1
 
 commands:
-  dependencies:
-    description: "install dependencies"
+  machine_deps:
+    description: "install machine dependencies"
+    steps:
+      - run: |
+          apt update
+          apt install python3-distutils python3-apt python3.9 python3-pip -y
+          python3.9 -m pip install --upgrade pip
+          python3.9 -m pip install -r requirements.txt
+          ansible-galaxy collection install linode.cloud community.crypto community.mysql
+
+  docker_deps:
+    description: "install machine dependencies"
     steps:
       - run: |
           apt update
@@ -16,7 +26,7 @@ commands:
     steps:
       - run: |
           mkdir -p $HOME/.local/bin
-          sudo cp scripts/run.sh $HOME/.local/bin/run
+          cp scripts/run.sh $HOME/.local/bin/run
           echo "export PATH=$HOME/.local/bin:$PATH" >> $BASH_ENV
 
   build:
