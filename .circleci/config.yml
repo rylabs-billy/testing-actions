@@ -36,6 +36,14 @@ jobs:
       image: ubuntu-2004:202010-01
     steps:
       - checkout
+
+      - run:
+          name: "copy run script to path"
+          command: |
+            mkdir $HOME/.local/bin
+            sudo cp scripts/run.sh $HOME/.local/bin/run
+            echo "export PATH=$HOME/.local/bin:$PATH" >> $BASH_ENV
+            
       - run:
           name: "install dependencies" 
           command: |
@@ -44,13 +52,6 @@ jobs:
             python3.9 -m pip install --upgrade pip
             python3.9 -m pip install -r requirements.txt
             ansible-galaxy collection install linode.cloud community.crypto community.mysql
-
-      - run:
-          name: "copy run script to path"
-          command: |
-            mkdir $HOME/.local/bin
-            sudo cp scripts/run.sh $HOME/.local/bin/run
-            echo "export PATH=$HOME/.local/bin:$PATH" >> $BASH_ENV
 
       - run:
           name: "build"
@@ -63,7 +64,7 @@ jobs:
           command: run test:debian10
       
 workflows:
-  build_and_test:
+  ubuntu2002_and_debian10:
     jobs:
       - ubuntu2004:
           context:
