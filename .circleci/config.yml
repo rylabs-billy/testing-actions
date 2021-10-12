@@ -9,8 +9,7 @@ jobs:
           name: "install dependencies" 
           command: |
             sudo apt update
-            DEBIAN_FRONTEND=noninteractive
-            sudo apt install openssh-server python3.9 -y
+            sudo apt install python3.9 -y
             python3.9 -m pip install --upgrade pip
             python3.9 -m pip install -r requirements.txt
             ansible-galaxy collection install linode.cloud community.crypto community.mysql
