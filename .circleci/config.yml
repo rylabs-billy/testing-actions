@@ -64,7 +64,7 @@ jobs:
       - image: jrei/systemd-ubuntu:latest
     steps:
       - checkout
-      - dependencies
+      - machine_deps
       - run_script
       - run: run lint
       
